@@ -8,6 +8,9 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * 自定义 扩展 schemas流程
  */
 public class MyNamespaceHandler extends NamespaceHandlerSupport {
+
+    public static void main(String[] args) {
+    }
     @Override
     public void init() {
         registerBeanDefinitionParser("people", new PeopleBeanDefinitionParser());

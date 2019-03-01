@@ -38,3 +38,5 @@
     channelDisconnected与channelClosed的区别？
     channelDisconnected只有在连接建立后断开才会调用
     channelClosed无论连接是否成功都会调用关闭资源
+    
+**如何搭建一个多线程的NIO系统**

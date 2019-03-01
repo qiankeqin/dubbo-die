@@ -1,1 +1,3 @@
 http\://qiurunze/cutesource/schema/people=com.dubbowork.qrz.service.MyNamespaceHandler
+
+http\://wyjm.netty.com/schema=com.dubbowork.qrz.service.ConsumerNamespaceHandler

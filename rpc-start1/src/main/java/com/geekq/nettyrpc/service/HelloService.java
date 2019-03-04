@@ -5,5 +5,5 @@ package com.geekq.nettyrpc.service;
  */
 public interface HelloService {
 
-    public String hello(String msg);
+    public String hello(String name);
 }

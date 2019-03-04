@@ -1,4 +1,4 @@
-### 动态代理
+### 动态代理 JDK版本
 
 1.动态代理机制中，有两个重要的类和接口，一个是`InvocationHandler`接口，一个是`Proxy`类，他们是动态代理所必须的！
 
@@ -26,14 +26,26 @@ public static Object newProxyInstance(ClassLoader loader, Class<?>[] interfaces,
 
 `loader`:一个ClassLoader对象，定义了由哪个ClassLoader对象来对生成的代理对象进行加载 一般都是系统加载器！
 
-`interfaces`:一个Interface对象的数组，表示的是我将要给我需要代理的对象提供一组什么接口，提供了一组接口给它！
+`interfaces`:代理对象需要实现的接口，可以同时指定多个接口
 
-`h`:一个InvocationHandler对象，表示的是当我这个动态代理对象在调用方法的时候，会关联到哪一个InvocationHandler对象上
+`h`:方法调用的实际处理者，代理对象的方法都会转发到这
 
+`newProxyInstance()会返回一个实现了指定接口的代理对象，对该对象的所有方法调用都会转发给InvocationHandler.invoke()方法。理解上述代码需要对Java反射机制有一定了解
+`
+**神奇的地方**
+
+1.代理对象是在程序运行时产生的，而不是编译期
+
+2.对代理对象的所有接口方法调用都会转发到InvocationHandler.invoke()方法，在invoke()方法里我们可以加入任何逻辑，
+比如修改方法参数，加入日志功能、安全检查功能等；之后我们通过某种方式执行真正的方法体，示例中通过反射调用了Hello对象的相应方法，还可以通过RPC调用远程方法。
 
         Proxy.newProxyInstance 创建的代理对象是在jvm运行时动态生成的一个对象，它并不是我们的InvocationHandler类型，
         也不是我们定义的那组接口的类型，而是在运行是动态生成的一个对象，并且命名方式都是这样的形式，以$开头，proxy为中，最后一个数字表示对象的标号
         
+        ----------------------注意
+        
+        注意1：对于从Object中继承的方法，JDK Proxy会把hashCode()、equals()、toString()这三个非接口方法转发给InvocationHandler，
+        其余的Object方法则不会转发。
         
 **代码解析**
 
@@ -50,4 +62,3 @@ public static Object newProxyInstance(ClassLoader loader, Class<?>[] interfaces,
     都为系统加载器 无所谓那个加载
     
     com.sun.proxy.$Proxy0 说明动态的生成了一个新的对象 
-
